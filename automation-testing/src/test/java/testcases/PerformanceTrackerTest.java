@@ -41,7 +41,8 @@ public class PerformanceTrackerTest {
     public void addPerformanceTrackerTest() throws Exception {
         excelHelpers.setExcelFilePath("src/test/resources/data_source.xlsx", "Performance Tracker");
         int rowCount = excelHelpers.getRowCount();
-        for (int i = 1; i <= 1; i++) {
+        System.out.println(rowCount);
+        for (int i = 1; i <= rowCount; i++) {
             driver.navigate().to(addPerformanceTrackerUrl);
             performanceTrackerPage = new AddPerformanceTrackerPage(this.driver);
 
@@ -50,7 +51,7 @@ public class PerformanceTrackerTest {
             String reviewersName = excelHelpers.getCellData("Reviewers Name", i);
             String expectedResult = excelHelpers.getCellData("Expected Result", i);
             performanceTrackerPage.addPerformanceTracker(trackerName, employeeName, reviewersName);
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         }
     }
 

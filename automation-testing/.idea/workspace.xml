@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -46,7 +49,7 @@
       <recent name="D:\GitHub\CSC13003-Software-Testing\automation-testing\src\results" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.KPITest.addKPITest">
+  <component name="RunManager" selected="TestNG.PerformanceTrackerTest.addPerformanceTrackerTest">
     <configuration name="AutomationScript.testExample" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="automation-testing" />
       <extension name="coverage">
@@ -121,8 +124,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.KPITest.addKPITest" />
         <item itemvalue="TestNG.PerformanceTrackerTest.addPerformanceTrackerTest" />
+        <item itemvalue="TestNG.KPITest.addKPITest" />
         <item itemvalue="TestNG.KPITest.logInPage" />
         <item itemvalue="TestNG.AutomationScript.testExample" />
       </list>
@@ -140,7 +143,9 @@
       <workItem from="1668913902574" duration="3881000" />
       <workItem from="1668929699568" duration="14798000" />
       <workItem from="1668948601396" duration="14194000" />
-      <workItem from="1668992332552" duration="15041000" />
+      <workItem from="1668992332552" duration="16985000" />
+      <workItem from="1669018292199" duration="8042000" />
+      <workItem from="1669032684835" duration="1155000" />
     </task>
     <servers />
   </component>
@@ -157,21 +162,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/helpers/UIHelpers.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/helpers/UIHelpers.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

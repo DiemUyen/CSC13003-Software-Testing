@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UIHelpers {
@@ -37,7 +36,6 @@ public class UIHelpers {
     }
 
     public void setDropdownElement(By element, String value) throws InterruptedException {
-        Actions keyDown = new Actions(driver);
         int index = 1;
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 
@@ -58,38 +56,30 @@ public class UIHelpers {
 
     public void setDynamicDropdownElement(WebElement element, String value) throws InterruptedException {
         String name = value;
-
-        element.sendKeys(name.toLowerCase().substring(0, 1));
-        //List<WebElement> valueList = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@role='listbox']")));
-        List<WebElement> valueList = driver.findElements(By.xpath("//li"));
-        List<WebElement> children = new ArrayList<>();
-        for (WebElement item: valueList) {
-            try {
-                children = wait.until(ExpectedConditions.visibilityOfAllElements(item.findElements(By.tagName("li"))));
-            }
-            catch (Exception exception) {
-                System.out.println(item);
-            }
-
-            for( WebElement child : children) {
-                String text = child.getText();
-                if (child.getText().contains(value)) {
-                    //child.click();
-                }
-            }
-        }
-
-        /*Actions keyDown = new Actions(driver);
+        int index = 0;
+        Actions actions = new Actions(driver);
 
         if (!value.isBlank()) {
-            //Thread.sleep(200);
-            wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-            element.sendKeys(name.toLowerCase().substring(0, 1));
-            List<WebElement> valueList = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@role='listbox']")));
-            //valueList.get(0).click();
-            keyDown.sendKeys(Keys.chord(Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.ENTER)).build().perform();
-            keyDown.click();
-        }*/
+            element.sendKeys(name.substring(0, 4));
+            List<WebElement> elements;
+            elements = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
+            do {
+                List<WebElement> temp;
+                Thread.sleep(4000);
+                actions.moveToElement(driver.findElement(By.xpath("//div[@role='listbox']"))).build().perform();
+                temp = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
+                String text = temp.get(index).getText();
+                if (value.equals(text)) {
+                    for (int j = 0; j <= index; j++)
+                        actions.sendKeys(Keys.DOWN).build().perform();
+                    actions.click().build().perform();
+                    return;
+                }
+                index++;
+            } while(index < elements.size());
+
+            element.sendKeys(Keys.chord(Keys.CONTROL, "a"), value);
+        }
     }
 
     public void takeScreenshot(By element, String testCaseName) {
