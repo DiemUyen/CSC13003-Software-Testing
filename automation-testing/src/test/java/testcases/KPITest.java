@@ -1,15 +1,18 @@
 package testcases;
 
-import helpers.CaptureHelpers;
+import base.BaseSetup;
+import base.ListenerTest;
 import helpers.ExcelHelpers;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AddKPIPage;
 import pages.LogInPage;
 
 import java.time.Duration;
 
+@Listeners(ListenerTest.class)
 public class KPITest {
     private EdgeDriver driver;
     private ExcelHelpers excelHelpers;
@@ -22,6 +25,7 @@ public class KPITest {
     @BeforeTest
     public void setUpBrowser() throws Exception {
         driver = new EdgeDriver();
+        BaseSetup.driver = this.driver;
         driver.manage().window().maximize();
         excelHelpers = new ExcelHelpers();
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(0));
@@ -35,7 +39,7 @@ public class KPITest {
         Thread.sleep(1000);
     }
 
-    @Test
+    @Test(alwaysRun = true)
     public void addKPITest() throws Exception {
         excelHelpers.setExcelFilePath("src/test/resources/data_source.xlsx", "KPI");
         int rowCount = excelHelpers.getRowCount();
@@ -49,8 +53,25 @@ public class KPITest {
             String maximumRating = excelHelpers.getCellData("Maximum Rating", i);
             String expectedResult = excelHelpers.getCellData("Expected Result", i);
             kpiPage.addKPI(kpi, jobTitle, minimumRating, maximumRating);
-            Thread.sleep(1000);
+            Thread.sleep(4000);
+            assertOutput(expectedResult, i);
         }
+    }
+
+    private void assertOutput(String expectedResult, int rowNumber) throws Exception {
+        String actualResult = "";
+        if (expectedResult.contains("http")) {
+            for (String windows : driver.getWindowHandles()) {
+                driver.switchTo().window(windows);
+            }
+            actualResult = driver.getCurrentUrl();
+        }
+        else {
+            int errorNumber = kpiPage.getErrorNumber();
+            actualResult = errorNumber + " error field";
+        }
+        excelHelpers.setCellData(actualResult, rowNumber, "Actual Result");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @AfterClass

@@ -22,6 +22,7 @@ public class AddPerformanceTrackerPage {
     private WebElement employeeNameInput;
     private WebElement reviewersNameInput;
     private By saveBtn = By.xpath("//button[@type='submit']");
+    private final By errors = By.cssSelector(".oxd-text.oxd-text--span.oxd-input-field-error-message.oxd-input-group__message");
 
     private void setElements() {
         List<WebElement> inputFields = this.driver.findElements(By.cssSelector("input"));
@@ -35,5 +36,9 @@ public class AddPerformanceTrackerPage {
         helpers.setDynamicDropdownElement(employeeNameInput, employee);
         helpers.setDynamicDropdownElement(reviewersNameInput, reviewers);
         helpers.clickElement(saveBtn);
+    }
+
+    public int getErrorNumber() {
+        return helpers.getErrors(errors);
     }
 }

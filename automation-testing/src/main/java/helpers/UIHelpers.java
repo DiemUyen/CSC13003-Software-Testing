@@ -1,5 +1,6 @@
 package helpers;
 
+import org.checkerframework.checker.regex.qual.Regex;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class UIHelpers {
     private final EdgeDriver driver;
-    private final WebDriverWait wait;
+    private WebDriverWait wait;
 
     public UIHelpers(EdgeDriver _driver) {
         driver = _driver;
@@ -41,7 +42,7 @@ public class UIHelpers {
 
         if (!value.isBlank()) {
             driver.findElement(element).click();
-            Thread.sleep(200);
+            Thread.sleep(2000);
             var elements = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
             do {
                 var temp = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
@@ -60,7 +61,13 @@ public class UIHelpers {
         Actions actions = new Actions(driver);
 
         if (!value.isBlank()) {
-            element.sendKeys(name.substring(0, 4));
+            if (value.contains(".")) {
+                int dotIndex = value.indexOf(".");
+                element.sendKeys(value.substring(0, dotIndex));
+            }
+            else {
+                element.sendKeys(name.substring(0, 4));
+            }
             List<WebElement> elements;
             elements = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
             do {
@@ -69,7 +76,7 @@ public class UIHelpers {
                 actions.moveToElement(driver.findElement(By.xpath("//div[@role='listbox']"))).build().perform();
                 temp = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@role='listbox']//div"))));
                 String text = temp.get(index).getText();
-                if (value.equals(text)) {
+                if (value.equals(text) || value.contains(".")) {
                     for (int j = 0; j <= index; j++)
                         actions.sendKeys(Keys.DOWN).build().perform();
                     actions.click().build().perform();
@@ -82,13 +89,8 @@ public class UIHelpers {
         }
     }
 
-    public void takeScreenshot(By element, String testCaseName) {
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-            CaptureHelpers.captureScreenshot(driver, testCaseName);
-        }
-        catch (Exception exception) {
-
-        }
+    public int getErrors(By element) {
+        var errors = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(element));
+        return errors.size();
     }
 }

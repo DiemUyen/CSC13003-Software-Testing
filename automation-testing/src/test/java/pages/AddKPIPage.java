@@ -17,6 +17,7 @@ public class AddKPIPage {
         setElements();
     }
 
+    // Elements at Add KPI Page
     private WebElement kpiNameInput;
     private WebElement minimumRatingInput;
     private WebElement maximumRatingInput;
@@ -25,7 +26,6 @@ public class AddKPIPage {
     private final By errors = By.cssSelector(".oxd-text.oxd-text--span.oxd-input-field-error-message.oxd-input-group__message");
 
     private void setElements() {
-        // Elements at Add KPI Page
         List<WebElement> inputFields = this.driver.findElements(By.cssSelector(".oxd-input.oxd-input--active"));
         kpiNameInput = inputFields.get(1);
         minimumRatingInput = inputFields.get(2);
@@ -38,11 +38,9 @@ public class AddKPIPage {
         helpers.setWebElementText(minimumRatingInput, minimumRatingValue);
         helpers.setWebElementText(maximumRatingInput, maximumRatingValue);
         helpers.clickElement(saveBtn);
-        assertOutput();
-        //helpers.takeScreenshot(errors, "add_kpi_test_case");
     }
 
-    private void assertOutput() {
-        System.out.println(driver.getCurrentUrl());
+    public int getErrorNumber() {
+        return helpers.getErrors(errors);
     }
 }

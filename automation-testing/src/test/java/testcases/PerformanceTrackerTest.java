@@ -1,17 +1,18 @@
 package testcases;
 
+import base.BaseSetup;
+import base.ListenerTest;
 import helpers.ExcelHelpers;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 import pages.AddPerformanceTrackerPage;
 import pages.LogInPage;
 
 import java.time.Duration;
 
+@Listeners(ListenerTest.class)
 public class PerformanceTrackerTest {
     private EdgeDriver driver;
     private ExcelHelpers excelHelpers;
@@ -24,6 +25,7 @@ public class PerformanceTrackerTest {
     @BeforeTest
     public void setUpBrowser() {
         driver = new EdgeDriver();
+        BaseSetup.driver = this.driver;
         //driver.manage().window().maximize();
         excelHelpers = new ExcelHelpers();
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(0));
@@ -51,8 +53,25 @@ public class PerformanceTrackerTest {
             String reviewersName = excelHelpers.getCellData("Reviewers Name", i);
             String expectedResult = excelHelpers.getCellData("Expected Result", i);
             performanceTrackerPage.addPerformanceTracker(trackerName, employeeName, reviewersName);
-            Thread.sleep(3000);
+            Thread.sleep(4000);
+            assertOutput(expectedResult, i);
         }
+    }
+
+    private void assertOutput(String expectedResult, int rowNumber) throws Exception {
+        String actualResult = "";
+        if (expectedResult.contains("http")) {
+            for (String windows : driver.getWindowHandles()) {
+                driver.switchTo().window(windows);
+            }
+            actualResult = driver.getCurrentUrl();
+        }
+        else {
+            int errorNumber = performanceTrackerPage.getErrorNumber();
+            actualResult = errorNumber + " error field";
+        }
+        excelHelpers.setCellData(actualResult, rowNumber, "Actual Result");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @AfterClass

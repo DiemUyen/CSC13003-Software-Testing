@@ -84,13 +84,14 @@ public class ExcelHelpers {
         return getCellDataHelpers(rowNumber, columns.get(columnName));
     }
 
-    public void setCellData(String content, int rowNumber, int columnNumber) throws Exception {
+    public void setCellData(String content, int rowNumber, String columnName) throws Exception {
         try {
             row = sheet.getRow(rowNumber);
             if (row == null) {
                 row = sheet.createRow(rowNumber);
             }
 
+            int columnNumber = columns.get(columnName);
             cell = row.getCell(columnNumber);
             if (cell == null) {
                 cell = row.createCell(columnNumber);
