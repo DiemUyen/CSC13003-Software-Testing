@@ -39,7 +39,7 @@ public class KPITest {
     public void addKPITest() throws Exception {
         excelHelpers.setExcelFilePath("src/test/resources/data_source.xlsx", "KPI");
         int rowCount = excelHelpers.getRowCount();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= rowCount; i++) {
             driver.navigate().to(addKPIUrl);
             kpiPage = new AddKPIPage(this.driver);
 

@@ -101,9 +101,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PerformanceTrackerTest.addPerformanceTrackerTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="automation-testing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testcases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testcases" />
+      <option name="MAIN_CLASS_NAME" value="testcases.PerformanceTrackerTest" />
+      <option name="METHOD_NAME" value="addPerformanceTrackerTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="TestNG.KPITest.addKPITest" />
+        <item itemvalue="TestNG.PerformanceTrackerTest.addPerformanceTrackerTest" />
         <item itemvalue="TestNG.KPITest.logInPage" />
         <item itemvalue="TestNG.AutomationScript.testExample" />
       </list>
@@ -121,6 +140,7 @@
       <workItem from="1668913902574" duration="3881000" />
       <workItem from="1668929699568" duration="14798000" />
       <workItem from="1668948601396" duration="14194000" />
+      <workItem from="1668992332552" duration="15041000" />
     </task>
     <servers />
   </component>
@@ -137,5 +157,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/helpers/UIHelpers.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/helpers/UIHelpers.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -14,7 +14,7 @@ public class AddKPIPage {
     public AddKPIPage(EdgeDriver _driver) {
         this.driver = _driver;
         helpers = new UIHelpers(this.driver);
-        setElement();
+        setElements();
     }
 
     private WebElement kpiNameInput;
@@ -24,7 +24,7 @@ public class AddKPIPage {
     private final By saveBtn = By.xpath("//button[@type='submit']");
     private final By errors = By.cssSelector(".oxd-text.oxd-text--span.oxd-input-field-error-message.oxd-input-group__message");
 
-    private void setElement() {
+    private void setElements() {
         // Elements at Add KPI Page
         List<WebElement> inputFields = this.driver.findElements(By.cssSelector(".oxd-input.oxd-input--active"));
         kpiNameInput = inputFields.get(1);
