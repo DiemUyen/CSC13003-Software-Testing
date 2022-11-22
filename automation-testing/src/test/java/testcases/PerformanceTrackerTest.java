@@ -26,7 +26,7 @@ public class PerformanceTrackerTest {
     public void setUpBrowser() {
         driver = new EdgeDriver();
         BaseSetup.driver = this.driver;
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
         excelHelpers = new ExcelHelpers();
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(0));
     }
